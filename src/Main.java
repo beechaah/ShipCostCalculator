@@ -1,39 +1,42 @@
+import java.util.Scanner;
+
 public class Main
 {
     public static void main(String[] args)
     {
-        double FREE_SHIP_VALUE = 100;
-        double SHIP_RATE = 0.02;
-        double itemPrice = 125.67;
-        double totalPrice = 0;
+        Scanner console = new Scanner(System.in);
+        final double FREE_SHIP = 100;
+        final double SHIP_RATE = 0.02;
+        double itemPrice = 0;
         double shipCost = 0;
         double totalCost = 0;
-        boolean doneInput = false;
-        String continueYN = "";
-        do
-        {
-            System.out.println("Enter the price of the item: ");
-            totalPrice += itemPrice;
-            System.out.println("Do you have another item? (Y/N): ");
-            if (continueYN == "N")
-            {
-                doneInput = true;
-            }
+        String trash = "";
 
-        }
-        while (doneInput == true);
-        if (totalPrice >= FREE_SHIP_VALUE)
+        System.out.print("Enter the item price: ");
+
+        if(console.hasNextInt())
         {
-            shipCost = 0;
-            totalCost = totalPrice;
+            itemPrice = console.nextDouble();
+            console.nextLine();
+
+            if(itemPrice >= FREE_SHIP)
+            {
+                shipCost = 0;
+                totalCost = itemPrice;
+            }
+            else
+            {
+                shipCost = SHIP_RATE * itemPrice;
+                totalCost = itemPrice + shipCost;
+            }
+            System.out.println("The ship cost is " + shipCost);
+            System.out.println("The total cost is " + totalCost);
         }
         else
         {
-            shipCost = totalPrice * SHIP_RATE;
-            totalCost = totalPrice + shipCost;
+            trash = console.nextLine();
+            System.out.println("You entered " + trash + "not a number!");
+            System.out.println("Run the program again with correct input");
         }
-        System.out.println("The total price is: " + totalPrice);
-        System.out.println("The Shipping Costs are: " + shipCost);
-        System.out.println("The total costs are: " + totalCost);
     }
 }
